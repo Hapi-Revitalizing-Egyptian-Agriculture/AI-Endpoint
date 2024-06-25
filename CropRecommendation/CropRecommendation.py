@@ -11,12 +11,13 @@ k_value = 18
 # Function to get the crop recommendation
 def get_crop_recommendation(n, p, k):
     """
-    Get crop recommendations based on the given nutrient values.
+    Get crop recommendations based on the given nutrient values, using the Manhattan distance.
+    If a negative value is encountered, the corresponding crop's score is set to infinity.
 
     Args:
-        n (int): The nitrogen value.
-        p (int): The phosphorus value.
-        k (int): The potassium value.
+        n (float): The nitrogen value.
+        p (float): The phosphorus value.
+        k (float): The potassium value.
 
     Returns:
         dict: A dictionary containing the recommended crops and their corresponding scores.
@@ -28,18 +29,22 @@ def get_crop_recommendation(n, p, k):
     for crop, ratio in crop_ratios.items():
         print(f"Checking for {crop}")
         print(f"Crop Ratios: {ratio}")
-        optimals[crop] = abs(
-            3
-            - (
-                land_ratio[0] / ratio[0]
-                + land_ratio[1] / ratio[1]
-                + land_ratio[2] / ratio[2]
-            )
+        # Calculate Manhattan distance
+        distance = (
+            (land_ratio[0] - ratio[0])
+            + (land_ratio[1] - ratio[1])
+            + (land_ratio[2] - ratio[2])
         )
+
+        # Check for negative values in the calculated distance
+        if distance < 0:
+            optimals[crop] = float("inf")
+        else:
+            optimals[crop] = distance
+
     sorted_optimals = sorted(optimals.items(), key=lambda x: x[1])
     sorted_optimals = dict(sorted_optimals)
     return sorted_optimals
-
 
 optimals = get_crop_recommendation(n_value, p_value, k_value)
 print(optimals)
