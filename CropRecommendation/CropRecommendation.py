@@ -31,9 +31,9 @@ def get_crop_recommendation(n, p, k):
         print(f"Crop Ratios: {ratio}")
         # Calculate Manhattan distance
         distance = (
-            (land_ratio[0] - ratio[0])
-            + (land_ratio[1] - ratio[1])
-            + (land_ratio[2] - ratio[2])
+            (ratio[0] - land_ratio[0])
+            + (ratio[1] - land_ratio[1])
+            + (ratio[2] - land_ratio[2])
         )
 
         # Check for negative values in the calculated distance
