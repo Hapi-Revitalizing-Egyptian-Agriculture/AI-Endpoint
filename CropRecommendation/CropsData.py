@@ -1,5 +1,5 @@
-from .CalculateRatios import calculate_ratio
-from . import UnitConversion as uc
+from CalculateRatios import calculate_ratio
+import UnitConversion as uc
 
 crop_nutrients_lbs_a = {
     "wheat": [70, 20, 25],
