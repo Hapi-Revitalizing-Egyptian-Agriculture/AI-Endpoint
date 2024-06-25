@@ -42,7 +42,7 @@ def get_crop_recommendation(n, p, k):
             print(f"Negative value encountered for {crop}, specifically: {negatives}")
             optimals[crop] = float("inf")
         else:
-            optimals[crop] = sum(differences)
+            optimals[crop] = sum(abs(diff) for diff in differences)
 
     sorted_optimals = sorted(optimals.items(), key=lambda x: x[1])
     sorted_optimals = dict(sorted_optimals)
